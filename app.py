@@ -4,14 +4,23 @@ import json
 app = Flask(__name__)
 port = 8000
 
-@app.route('/', methods=['POST'])
-def index():
+# to modify according to your ngrok address
+baseUrl = 'https://1e7fc766.ngrok.io'
+
+@app.route('/bass', methods=['POST'])
+def get_bass():
   print(json.loads(request.get_data()))
   return jsonify(
     status=200,
     replies=[{
-      'type': 'text',
-      'content': 'Roger that',
+      'type': 'video',
+      'content': baseUrl+'/bass/01',
+    }, {
+      'type': 'video',
+      'content': baseUrl+'/bass/02',
+    }, {
+      'type': 'video',
+      'content': baseUrl+'/bass/03',
     }],
     conversation={
       'memory': { 'key': 'value' }
