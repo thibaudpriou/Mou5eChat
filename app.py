@@ -42,6 +42,40 @@ def get_bass_3():
     filename = 'samples/bass/bass_03_140bpm.mp3'
     return send_file(filename, mimetype='audio/mpeg')
 
+instrument = 'drums'
+@app.route('/'+instrument, methods=['POST'])
+def get_bass():
+  print(json.loads(request.get_data()))
+  return jsonify(
+    status=200,
+    replies=[{
+      'type': 'video',
+      'content': baseUrl+'/'instrument'/01',
+    }, {
+      'type': 'video',
+      'content': baseUrl+'/'+instrument+'/02',
+    }, {
+      'type': 'video',
+      'content': baseUrl+'/'+instrument+'/03',
+    }],
+    conversation={
+      'memory': { 'key': 'value' }
+    }
+  )
+@app.route('/'+instrument+'/01', methods=['GET'])
+def get_bass_1():
+    filename = 'samples/'+instrument+'/drum_01_94bpm.mp3'
+    return send_file(filename, mimetype='audio/mpeg')
+
+@app.route('/'+instrument+'/02', methods=['GET'])
+def get_drums_2():
+    filename = 'samples/'+instrument+'/drum_02_96bpm.mp3'
+    return send_file(filename, mimetype='audio/mpeg')
+
+@app.route('/'+instrument+'/03', methods=['GET'])
+def get_drums_3():
+    filename = 'samples/'+instrument+'/drum_03_97bpm.mp3'
+    return send_file(filename, mimetype='audio/mpeg')
 
 @app.route('/errors', methods=['POST'])
 def errors():
